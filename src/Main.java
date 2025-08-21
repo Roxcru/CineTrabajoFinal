@@ -1,15 +1,22 @@
 import Clases.Pelicula;
+import Clases.Sala;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static Modelo.ClsSala.*;
+import static Modelo.CslPelicula.*;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     static List<Pelicula> lstPeliculas = new ArrayList<>();
+    static List<Sala> lstSalas = new ArrayList<>();
+
     public static void main(String[] args) {
         lstPeliculas = lstPelicula();
+        lstSalas = lstSala();
         listarMenu();
     }
 
@@ -18,65 +25,92 @@ public class Main {
 
         //Menu
         System.out.println("=============================MENU=============================");
-        System.out.println("1. Ver la pelicula");
-        System.out.println("2. Agregar nuevo usuarios");
-        System.out.println("3. Agregar pelicula");
+        System.out.println("1. Mantenimiento de peliculas");
+        System.out.println("2. Mantenimiento de salas");
+        System.out.println("3. Programación de funciones");
 
         int opcMenu = sc.nextInt();
+        clearScreen();
+        System.out.flush();
+        subListaMenu(opcMenu);
 
-        switch (opcMenu) {
-            case 1:
-                lstPeliculas.forEach(pelicula -> {
-                    System.out.println(
-                            "-------------------------------------------------------------------------------"
-                    );
-                    System.out.println(
-                            "|Codigo: " + pelicula.getIdPelicula() + "\t" +
-                                    "|Titulo: " + pelicula.getTitulo() + "|"
-                    );
-                    System.out.println(
-                            "|Sinopsis: " + pelicula.getDescripcion() + "|"
-                    );
-                });
-                System.out.println(
-                        "-------------------------------------------------------------------------------"
-                );
-                System.out.println("\n");
-                break;
-            case 2:
-                //registrarPersonal();
-                System.out.println("Se registro correctamente");
-                System.out.println("\n");
-                break;
-        }
-        listarMenu();
     }
 
-    public static List<Pelicula> lstPelicula(){
-        //Lista de Personal
-        List<Pelicula> lstPersonal = new ArrayList<>();
+    public static void subListaMenu(int idMenu){
+        Scanner sc2 = new Scanner(System.in);
+        switch (idMenu){
+            case 1:
+                //Menu
+                System.out.println("=============================MANTENIMIENTO PELICULAS=============================");
+                System.out.println("1. Listar Peliculas");
+                System.out.println("2. Agregar Pelicula");
+                System.out.println("3. Eliminar Pelicula");
+                System.out.println("4. Regresar al menu anterior");
+                break;
+            case 2:
+                //Menu
+                System.out.println("=============================MANTENIMIENTO SALAS=============================");
+                System.out.println("1. Listar Salas");
+                System.out.println("2. Agregar Sala");
+                System.out.println("3. Eliminar Sala");
+                System.out.println("4. Regresar al menu anterior");
+                break;
+            case 3:
 
-        lstPersonal.add(new Pelicula(
-                "001",
-                "Volver al Futuro",
-                "El adolescente Marty McFly es amigo de Doc, un científico que ha construido una máquina del tiempo. Cuando los dos prueban el artefacto, un error fortuito hace que Marty llegue a 1955, año en el que sus padres iban al instituto y todavía no se habían conocido. Después de impedir su primer encuentro, Marty deberá conseguir que se conozcan y se enamoren, de lo contrario su existencia no sería posible."));
+        }
 
-        lstPersonal.add(new Pelicula(
-                "002",
-                "El padrino",
-                "Don Vito Corleone es el respetado y temido jefe de una de las cinco familias de la mafia de Nueva York en los años 40. El hombre tiene cuatro hijos: Connie, Sonny, Fredo y Michael, que no quiere saber nada de los negocios sucios de su padre. Cuando otro capo, Sollozzo, intenta asesinar a Corleone, empieza una cruenta lucha entre los distintos clanes."));
+        int idSubMenu = sc2.nextInt();
+        if (idMenu == 1) ejecutar1(idMenu,idSubMenu);
+        if (idMenu == 2) ejecutar2(idMenu,idSubMenu);
 
-        lstPersonal.add(new Pelicula(
-                "003",
-                "Ciudadano Kane",
-                "Un periodista se obsesiona con comprender el significado de la última palabra que Charles Foster Kane dijo antes de morir: rosebud. Para descubrir el misterio investiga a varias personas del pasado del magnate."));
+    }
 
+    public static void ejecutar1(int idMenu, int idSubMenu) {
+        switch (idSubMenu){
+            case 1:
+                mstPelicula(lstPeliculas);
+                System.out.println("\n");
+                subListaMenu(idMenu);
+                System.out.println("\n");
+            case 2:
+                insPelicula(lstPeliculas);
+                System.out.println("\n");
+                subListaMenu(idMenu);
+                System.out.println("\n");
+            case 3:
+                delPelicula(lstPeliculas);
+                System.out.println("\n");
+                subListaMenu(idMenu);
+                System.out.println("\n");
+            case 4:
+                listarMenu();
+        }
+    }
 
-        lstPersonal.add(new Pelicula(
-                "004",
-                "Matrix",
-                "El programador informático Thomas Anderson, más conocido en el mundo de los \"hacker\" como Neo, está en el punto de mira del temible agente Smith. Otros dos piratas informáticos, Trinity y Morfeo, se ponen en contacto con Neo para ayudarlo a escapar. Matrix te posee. Sigue al conejo blanco."));
+    public static void ejecutar2(int idMenu, int idSubMenu) {
+        switch (idSubMenu){
+            case 1:
+                mstSala(lstSalas);
+                System.out.println("\n");
+                subListaMenu(idMenu);
+                System.out.println("\n");
+            case 2:
+                insSala(lstSalas);
+                System.out.println("\n");
+                subListaMenu(idMenu);
+                System.out.println("\n");
+            case 3:
+                delSala(lstSalas);
+                System.out.println("\n");
+                subListaMenu(idMenu);
+                System.out.println("\n");
+            case 4:
+                listarMenu();
+        }
+    }
 
-        return lstPersonal;
+     public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 }
