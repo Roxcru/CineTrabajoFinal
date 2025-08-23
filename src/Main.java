@@ -1,3 +1,5 @@
+import Clases.Asientos;
+import Clases.Funcion;
 import Clases.Pelicula;
 import Clases.Sala;
 
@@ -5,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static Modelo.ClsFuncion.*;
 import static Modelo.ClsSala.*;
 import static Modelo.CslPelicula.*;
 
@@ -13,10 +16,14 @@ import static Modelo.CslPelicula.*;
 public class Main {
     static List<Pelicula> lstPeliculas = new ArrayList<>();
     static List<Sala> lstSalas = new ArrayList<>();
+    static List<Asientos> lstAsiento = new ArrayList<>();
+    static List<Funcion> lstFuncion = new ArrayList<>();
 
     public static void main(String[] args) {
         lstPeliculas = lstPelicula();
         lstSalas = lstSala();
+        lstFuncion = lstFuncion();
+        lstAsiento = lstAsientos();
         listarMenu();
     }
 
@@ -53,15 +60,24 @@ public class Main {
                 System.out.println("1. Listar Salas");
                 System.out.println("2. Agregar Sala");
                 System.out.println("3. Eliminar Sala");
-                System.out.println("4. Regresar al menu anterior");
+                System.out.println("4. Ver asientos de una Sala");
+                System.out.println("5. Establecer los asientos de una Sala");
+                System.out.println("6. Regresar al menu anterior");
                 break;
             case 3:
+                //Menu
+                System.out.println("=============================PROGRAMAR FUNCIONES=============================");
+                System.out.println("1. Ver Funciones");
+                System.out.println("2. Programar Función");
+                System.out.println("3. Regresar al menu anterior");
+                break;
 
         }
 
         int idSubMenu = sc2.nextInt();
         if (idMenu == 1) ejecutar1(idMenu,idSubMenu);
         if (idMenu == 2) ejecutar2(idMenu,idSubMenu);
+        if (idMenu == 3) ejecutar3(idMenu,idSubMenu);
 
     }
 
@@ -105,6 +121,33 @@ public class Main {
                 subListaMenu(idMenu);
                 System.out.println("\n");
             case 4:
+                mstAsientosPorSala(lstSalas);
+                System.out.println("\n");
+                subListaMenu(idMenu);
+                System.out.println("\n");
+            case 5:
+                insAsientos(lstSalas, lstAsiento);
+                System.out.println("\n");
+                subListaMenu(idMenu);
+                System.out.println("\n");
+            case 6:
+                listarMenu();
+        }
+    }
+
+    public static void ejecutar3(int idMenu, int idSubMenu) {
+        switch (idSubMenu){
+            case 1:
+                mstFuncion(lstFuncion, lstPeliculas, lstSalas);
+                System.out.println("\n");
+                subListaMenu(idMenu);
+                System.out.println("\n");
+            case 2:
+                programarFuncion(lstFuncion, lstPeliculas, lstSalas);
+                System.out.println("\n");
+                subListaMenu(idMenu);
+                System.out.println("\n");
+            case 3:
                 listarMenu();
         }
     }
